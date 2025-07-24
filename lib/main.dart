@@ -14,13 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Home", style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.deepPurple,
-        ),
-        body: Center(child: BiggerText(text: "Halo! Flutter")),
-      ),
+      home: HomeScreen(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -96,6 +90,60 @@ class _BiggerTextState extends State<BiggerText> {
           ],
         ),
       ],
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Search clicked')));
+            },
+            icon: const Icon(Icons.search, color: Colors.white),
+          ),
+        ],
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu, color: Colors.white),
+          ),
+        ),
+        backgroundColor: Colors.blue,
+      ),
+      drawer: Drawer(
+        child: SafeArea(
+          child: ListView(
+            children: const [
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.blue),
+                child: Text('Menu'),
+              ),
+              ListTile(leading: Icon(Icons.settings), title: Text("Settings")),
+            ],
+          ),
+        ),
+      ),
+      body: const Center(child: Text("Hello world")),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('FAB clicked')));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
