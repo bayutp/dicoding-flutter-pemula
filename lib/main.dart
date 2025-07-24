@@ -19,9 +19,25 @@ class MyApp extends StatelessWidget {
           title: Text("Home", style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.deepPurple,
         ),
-        body: Center(child: Text("Halo Flutter!")),
+        body: Center(child: Heading(text: "Halo! Flutter")),
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+}
+
+class Heading extends StatelessWidget {
+
+  final String text;
+
+  const Heading({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+    );
+  }
+  
 }
