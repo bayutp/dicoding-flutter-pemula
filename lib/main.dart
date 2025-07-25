@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeScreen(),
+      home: Scaffold(body: MyButton()),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -261,6 +261,97 @@ class MyRow extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+// Mengenal button
+class MyButton extends StatelessWidget {
+  const MyButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          child: ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Data submitted successfully")),
+              );
+            },
+            child: Text("Submit"),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          child: TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Text Button was clicked!")),
+              );
+            },
+            child: Text("Text Button"),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          child: OutlinedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text("Outline was clicked!")));
+            },
+            child: Text("Outline"),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          child: IconButton(
+            icon: Icon(Icons.volume_up),
+            tooltip: "Increase volume by 10",
+            onPressed: () {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text("Increase volume")));
+            },
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          child: MyDropdownButton(),
+        ),
+      ],
+    );
+  }
+}
+
+class MyDropdownButton extends StatefulWidget {
+  const MyDropdownButton({super.key});
+
+  @override
+  State<MyDropdownButton> createState() => _MyDropdownButtonState();
+}
+
+class _MyDropdownButtonState extends State<MyDropdownButton> {
+  String? language;
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      items: ['Java', 'Kotlin', 'Dart', 'Javascript']
+          .map(
+            (String lang) =>
+                DropdownMenuItem<String>(value: lang, child: Text(lang)),
+          )
+          .toList(),
+      value: language,
+      hint: Text('Select Language'),
+      onChanged: (String? value) {
+        setState(() {
+          language = value;
+        });
+      },
     );
   }
 }
