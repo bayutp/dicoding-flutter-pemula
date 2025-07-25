@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Mengenal stateless & stateful widgets
 class Heading extends StatelessWidget {
   final String text;
 
@@ -94,6 +95,7 @@ class _BiggerTextState extends State<BiggerText> {
   }
 }
 
+// Mengenal scaffold widgets
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -135,7 +137,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Center(child: Text("Hello world")),
+      body: const Center(child: Content(text: "Hello world")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           ScaffoldMessenger.of(
@@ -144,6 +146,33 @@ class HomeScreen extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
+    );
+  }
+}
+
+// Mengenal container
+class Content extends StatelessWidget {
+  final String text;
+
+  const Content({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //color: Colors.blue,
+      height: 350,
+      width: 300,
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.red, //shape: BoxShape.circle
+        boxShadow: const [
+          BoxShadow(color: Colors.blue, offset: Offset(3, 6), blurRadius: 10),
+        ],
+        border: Border.all(color: Colors.amber, width: 3),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(text, style: TextStyle(fontSize: 18.0, color: Colors.white)),
     );
   }
 }
