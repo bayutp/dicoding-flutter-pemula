@@ -11,6 +11,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _controller = TextEditingController();
   String? _errorMsg;
   bool _isEnabled = false;
+  bool _isMerried = false;
   // String _name = '';
   @override
   void initState() {
@@ -21,9 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void validateInput() {
     final text = _controller.text;
     _errorMsg = switch (text) {
+      // guard clause
       String name when name.isEmpty => 'Field name tidak boleh kosong',
       String name when name.length < 3 => 'Field name minimal 3 karakter',
-      _ => null
+      _ => null,
     };
     setState(() {
       _isEnabled = _errorMsg == null;
@@ -50,6 +52,21 @@ class _LoginScreenState extends State<LoginScreen> {
               //     _name = value;
               //   });
               // },
+            ),
+            SizedBox(height: 20),
+            Switch(
+              value: _isMerried,
+              onChanged: (bool value) {
+                setState(() {
+                  _isMerried = value;
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(_isMerried ? 'Menikah' : 'Single'),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              },
             ),
             SizedBox(height: 20),
             ElevatedButton(
