@@ -10,92 +10,74 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tourism App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Home", style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.deepPurple,
-        ),
-        body: Center(child: BiggerText(text: "Halo! Flutter")),
-      ),
+      home: const DetailScreen(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class Heading extends StatelessWidget {
-  final String text;
-
-  const Heading({super.key, required this.text});
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-    );
-  }
-}
-
-class BiggerText extends StatefulWidget {
-  final String text;
-
-  const BiggerText({super.key, required this.text});
-
-  @override
-  State<StatefulWidget> createState() => _BiggerTextState();
-}
-
-class _BiggerTextState extends State<BiggerText> {
-  double _textSize = 16.0;
-  final double _maxSize = 64.0;
-  final double _minSize = 16.0;
-
-  void _increaseTextSize() {
-    if (_textSize <= _maxSize) {
-      setState(() {
-        _textSize += 8.0;
-      });
-    }
-  }
-
-  void _decreaseTextSize() {
-    if (_textSize > _minSize) {
-      setState(() {
-        _textSize -= 8.0;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 300),
-          style: TextStyle(fontSize: _textSize, color: Colors.purple),
-          child: Text(widget.text),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ElevatedButton(
-              onPressed: _decreaseTextSize,
-              child: const Text("Perkecil"),
+            Container(
+              margin: const EdgeInsets.all(16),
+              child: Text(
+                "Farm House Lembang",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
             ),
-            SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: _increaseTextSize,
-              child: const Text("Perbesar"),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Icon(Icons.calendar_today),
+                      SizedBox(height: 8),
+                      Text('Open Everyday'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Icon(Icons.access_time),
+                      SizedBox(height: 8),
+                      Text('09.00 - 20.00'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Icon(Icons.monetization_on),
+                      SizedBox(height: 8),
+                      Text('Rp 25.000'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                "Berada di jalur utama Bandung-Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }
