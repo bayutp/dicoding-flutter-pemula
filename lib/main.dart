@@ -137,7 +137,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Center(child: MyPadding(text: "Hello world")),
+      body: const Center(child: MyRow()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           ScaffoldMessenger.of(
@@ -187,6 +187,80 @@ class MyPadding extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Text(text, style: TextStyle(fontSize: 18)),
+    );
+  }
+}
+
+// Mengenal Row and Column
+
+class MyRow extends StatelessWidget {
+  const MyRow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("MainAxisAlignment.center"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.share),
+            Icon(Icons.thumb_up),
+            Icon(Icons.thumb_down),
+          ],
+        ),
+        SizedBox(height: 32),
+        Text("MainAxisAlignment.spaceBetween"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.share),
+            Icon(Icons.thumb_up),
+            Icon(Icons.thumb_down),
+          ],
+        ),
+        SizedBox(height: 32),
+        Text("MainAxisAlignment.spaceAround"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(Icons.share),
+            Icon(Icons.thumb_up),
+            Icon(Icons.thumb_down),
+          ],
+        ),
+        SizedBox(height: 32),
+        Text("MainAxisAlignment.spaceEvenly"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Icon(Icons.share),
+            Icon(Icons.thumb_up),
+            Icon(Icons.thumb_down),
+          ],
+        ),
+        SizedBox(height: 32),
+        Text("MainAxisAlignment.end"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Icon(Icons.share),
+            Icon(Icons.thumb_up),
+            Icon(Icons.thumb_down),
+          ],
+        ),
+        SizedBox(height: 32),
+        Text("MainAxisAlignment.start"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(Icons.share),
+            Icon(Icons.thumb_up),
+            Icon(Icons.thumb_down),
+          ],
+        ),
+      ],
     );
   }
 }
