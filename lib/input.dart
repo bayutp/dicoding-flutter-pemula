@@ -12,24 +12,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _errorMsg;
   bool _isEnabled = false;
   bool _isMerried = false;
+  String? language;
   // String _name = '';
   @override
   void initState() {
     super.initState();
     _controller.addListener(validateInput);
-  }
-
-  void validateInput() {
-    final text = _controller.text;
-    _errorMsg = switch (text) {
-      // guard clause
-      String name when name.isEmpty => 'Field name tidak boleh kosong',
-      String name when name.length < 3 => 'Field name minimal 3 karakter',
-      _ => null,
-    };
-    setState(() {
-      _isEnabled = _errorMsg == null;
-    });
   }
 
   @override
@@ -69,6 +57,24 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
             SizedBox(height: 20),
+            Column(
+              children: ['Java', 'Kotlin', 'Dart']
+                  .map(
+                    (String lang) => RadioListTile<String>(
+                      value: lang,
+                      groupValue: language,
+                      onChanged: (String? value) {
+                        setState(() {
+                          language = value;
+                          showSnackBar();
+                        });
+                      },
+                      title: Text(lang),
+                    ),
+                  )
+                  .toList(),
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: _isEnabled
                   ? () {
@@ -92,5 +98,27 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void validateInput() {
+    final text = _controller.text;
+    _errorMsg = switch (text) {
+      // guard clause
+      String name when name.isEmpty => 'Field name tidak boleh kosong',
+      String name when name.length < 3 => 'Field name minimal 3 karakter',
+      _ => null,
+    };
+    setState(() {
+      _isEnabled = _errorMsg == null;
+    });
+  }
+
+  void showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$language selected'),
+        duration: Duration(seconds: 1),
+      ),
+    );
   }
 }
