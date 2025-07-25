@@ -13,6 +13,12 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isEnabled = false;
   bool _isMerried = false;
   String? language;
+  final List<String> skills = ['Backend', 'Front End', 'Mobile'];
+  final Map<String, bool> skillSelected = {
+    'Backend': false,
+    'Front End': false,
+    'Mobile': false,
+  };
   // String _name = '';
   @override
   void initState() {
@@ -75,13 +81,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   .toList(),
             ),
             SizedBox(height: 20),
+            Column(
+              children: skills.map((String s) {
+                return CheckboxListTile(
+                  value: skillSelected[s],
+                  onChanged: (bool? value) {
+                    setState(() {
+                      skillSelected[s] = value ?? false;
+                    });
+                  },
+                  title: Text(s),
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: _isEnabled
                   ? () {
+                      final selectedOnly = skillSelected.entries
+                          .where((entry) => entry.value == true)
+                          .map((entry) => entry.key)
+                          .toList();
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: Text('Helo, ${_controller.text}'),
+                          content: Text(
+                            'Helo, ${_controller.text}\nStatus: ${_isMerried ? 'Menikah' : 'Single'}\nFavorit: $language\nSkills: ${selectedOnly.join(', ')}',
+                          ),
                         ),
                       );
                     }
