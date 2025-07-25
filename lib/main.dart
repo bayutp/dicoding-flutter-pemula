@@ -137,7 +137,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Center(child: Content(text: "Hello world")),
+      body: const Center(child: MyPadding(text: "Hello world")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           ScaffoldMessenger.of(
@@ -173,6 +173,20 @@ class Content extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(text, style: TextStyle(fontSize: 18.0, color: Colors.white)),
+    );
+  }
+}
+
+// mengenal padding
+class MyPadding extends StatelessWidget {
+  final String text;
+  const MyPadding({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Text(text, style: TextStyle(fontSize: 18)),
     );
   }
 }
