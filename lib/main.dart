@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_apps/list.dart';
+import 'package:flutter_apps/expanded.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        fontFamily: 'Oswald'
+        fontFamily: 'Oswald',
       ),
-      home: MyListView(),
+      home: MyFlexible(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
