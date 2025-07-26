@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_apps/input.dart';
+import 'package:flutter_apps/image.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: LoginScreen(),
+      home: MyImage(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -356,4 +356,3 @@ class _MyDropdownButtonState extends State<MyDropdownButton> {
     );
   }
 }
-
