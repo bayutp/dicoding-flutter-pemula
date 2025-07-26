@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/font.dart';
 import 'package:flutter_apps/image.dart';
 
 void main() {
@@ -14,8 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'Oswald'
       ),
-      home: MyImage(),
+      home: MyFont(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
