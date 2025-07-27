@@ -21,14 +21,23 @@ class DetailScreen extends StatelessWidget {
                   SafeArea(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.amber,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back, color: Colors.white,),
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const FavoritButton(),
+                        ],
                       ),
                     ),
                   ),
@@ -103,6 +112,32 @@ class DetailScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FavoritButton extends StatefulWidget {
+  const FavoritButton({super.key});
+
+  @override
+  State<FavoritButton> createState() => _FavoritButtonState();
+}
+
+class _FavoritButtonState extends State<FavoritButton> {
+  bool _isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          _isFavorite = !_isFavorite;
+        });
+      },
+      icon: Icon(
+        _isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.red,
       ),
     );
   }
