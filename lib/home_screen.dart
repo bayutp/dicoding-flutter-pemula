@@ -9,10 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Wisata Bandung. Size: ${MediaQuery.of(context).size.width}",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text("Wisata Bandung", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.amber,
       ),
       body: LayoutBuilder(

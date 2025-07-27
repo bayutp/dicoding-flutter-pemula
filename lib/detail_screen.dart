@@ -9,6 +9,178 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth > 800) {
+          return DetailWebPage(tourismPlace: tourismPlace);
+        } else {
+          return DetailMobilePage(tourismPlace: tourismPlace);
+        }
+      },
+    );
+  }
+}
+
+class DetailWebPage extends StatefulWidget {
+  final TourismPlace tourismPlace;
+
+  const DetailWebPage({super.key, required this.tourismPlace});
+
+  @override
+  State<DetailWebPage> createState() => _DetailWebPageState();
+}
+
+class _DetailWebPageState extends State<DetailWebPage> {
+  final _scrollbarController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 64.0),
+        child: Center(
+          child: SizedBox(
+            width: 1200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Wisata Bandung",
+                  style: TextStyle(fontFamily: 'Staatliches', fontSize: 32),
+                ),
+                const SizedBox(height: 32),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadiusGeometry.circular(10),
+                            child: Image.asset(widget.tourismPlace.imageAsset),
+                          ),
+                          const SizedBox(height: 16),
+                          Scrollbar(
+                            controller: _scrollbarController,
+                            child: Container(
+                              height: 150,
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: widget.tourismPlace.imageUrls.map((
+                                  url,
+                                ) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadiusGeometry.circular(10),
+                                      child: Image.network(url),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 32),
+                    Expanded(
+                      child: Card(
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  widget.tourismPlace.name,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Staatliches',
+                                    fontSize: 32,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.calendar_today),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        widget.tourismPlace.openDays,
+                                        style: informationStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  const FavoritButton(),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.access_time),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    widget.tourismPlace.openTime,
+                                    style: informationStyle,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Icon(Icons.monetization_on),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    widget.tourismPlace.ticketPrice,
+                                    style: informationStyle,
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                child: Text(
+                                  widget.tourismPlace.description,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Oxygen',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollbarController.dispose();
+    super.dispose();
+  }
+}
+
+class DetailMobilePage extends StatelessWidget {
+  final TourismPlace tourismPlace;
+  const DetailMobilePage({super.key, required this.tourismPlace});
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -17,7 +189,13 @@ class DetailScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Image.asset(tourismPlace.imageAsset),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Image.asset(
+                      tourismPlace.imageAsset,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   SafeArea(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
