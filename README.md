@@ -1,16 +1,19 @@
-# flutter_apps
+# Tourism App
 
-First dicoding flutter project
+Source: Dicoding Codelabs – Belajar Membuat Aplikasi Flutter untuk Pemula
 
-## Getting Started
+## Home Screen
 
-This project is a starting point for a Flutter application.
+Displays a list of tourism places in Bandung.
+### Mobile Version
+![Home Screen](screenshots/mobile/home_screen.png)
+### Web Version
+![Home Screen Web](screenshots/web/home_screen.png)
 
-A few resources to get you started if this is your first Flutter project:
+## Detail Screen
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Displays detailed information of the selected tourism place, including its image, description, location, and opening hours, when the user taps on an item from the home screen.
+### Mobile Version
+![Detail Screen](screenshots/mobile/detail_screen.png)
+### Web Version
+![Detail Screen Web](screenshots/web/detail_screen.png)
