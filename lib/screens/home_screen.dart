@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/data/movie_dummy.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,7 +29,25 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(child: Center(child: Text('Halo'))),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: movieDummy
+                  .map(
+                    (movie) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Text(
+                        '${movie.title} status: ${movie.isBookmark ?? false ? 'Bookmark' : 'Not bookmark'}',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
