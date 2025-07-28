@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/movie_dummy.dart';
 import 'package:flutter_apps/data/utils.dart';
 import 'package:flutter_apps/widgets/item_movie_banner.dart';
+import 'package:flutter_apps/widgets/title_category.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,20 +33,32 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            final movie = movieDummy[index];
-            return SizedBox(
-              width: 200,
-              child: ItemMovieBanner(
-                imgUrl: getImageUrl(movie.posterPath),
-                title: movie.title ?? "",
-                rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
+        child: Column(
+          children: [
+            TitleCategory(
+              title: 'Now Playing',
+              onClick: () => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Test"), duration: Duration(seconds: 1)),
               ),
-            );
-          },
-          itemCount: movieDummy.take(5).length,
+            ),
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final movie = movieDummy[index];
+                  return SizedBox(
+                    width: 200,
+                    child: ItemMovieBanner(
+                      imgUrl: getImageUrl(movie.posterPath),
+                      title: movie.title ?? "",
+                      rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
+                    ),
+                  );
+                },
+                itemCount: movieDummy.take(5).length,
+              ),
+            ),
+          ],
         ),
       ),
     );
