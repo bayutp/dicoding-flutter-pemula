@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                     (movie) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Text(
-                        '${movie.title} status: ${movie.isBookmark ?? false ? 'Bookmark' : 'Not bookmark'}',
+                        '${movie.title} status: ${getGenres(movie.genreIds ?? [])}',
                         style: TextStyle(fontSize: 32),
                       ),
                     ),
