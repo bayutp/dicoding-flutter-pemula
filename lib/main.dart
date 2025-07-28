@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'FilmKu',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'Poppins'
       ),
       home: HomeScreen(),
     );

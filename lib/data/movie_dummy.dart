@@ -714,14 +714,3 @@ List<Movie> popularDummy = popularJson
     .map((json) => Movie.fromJson(json))
     .toList();
 List<Genre> genres = genreJson.map((json) => Genre.fromJson(json)).toList();
-
-var getGenres = (List<int> ids) => ids
-    .map(
-      (id) => genres
-          .firstWhere(
-            (genre) => genre.id == id,
-            orElse: () => Genre(id: id, name: 'Unknown'),
-          )
-          .name,
-    )
-    .toList();

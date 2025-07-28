@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/movie_dummy.dart';
+import 'package:flutter_apps/data/utils.dart';
+import 'package:flutter_apps/widgets/item_movie_banner.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,22 +32,20 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: movieDummy
-                  .map(
-                    (movie) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Text(
-                        '${movie.title} status: ${getGenres(movie.genreIds ?? [])}',
-                        style: TextStyle(fontSize: 32),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            final movie = movieDummy[index];
+            return SizedBox(
+              width: 200,
+              child: ItemMovieBanner(
+                imgUrl: getImageUrl(movie.posterPath),
+                title: movie.title ?? "",
+                rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
+              ),
+            );
+          },
+          itemCount: movieDummy.take(5).length,
         ),
       ),
     );
