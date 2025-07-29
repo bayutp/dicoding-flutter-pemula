@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/utils.dart';
 import 'package:flutter_apps/widgets/item_genres.dart';
@@ -43,7 +44,11 @@ class ItemMovie extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(10),
-                child: Image.network(getImageUrl(imgUrl)),
+                child: CachedNetworkImage(
+                  imageUrl: getImageUrl(imgUrl),
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
             ),
           ),

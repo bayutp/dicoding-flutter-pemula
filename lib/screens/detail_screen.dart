@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/utils.dart';
 import 'package:flutter_apps/models/movie_list.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_apps/widgets/rating.dart';
 class DetailScreen extends StatefulWidget {
   final Movie movie;
   final Function(Movie) onBookmarkChanged;
-  
+
   const DetailScreen({
     super.key,
     required this.movie,
@@ -38,8 +39,10 @@ class _DetailScreenState extends State<DetailScreen> {
               flex: 1,
               child: Stack(
                 children: [
-                  Image.network(
-                    getImageUrl(widget.movie.backdropPath),
+                  CachedNetworkImage(
+                    imageUrl: getImageUrl(widget.movie.backdropPath),
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),

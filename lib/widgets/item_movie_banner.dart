@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/data/utils.dart';
 import 'package:flutter_apps/widgets/rating.dart';
 
 class ItemMovieBanner extends StatelessWidget {
@@ -35,7 +37,11 @@ class ItemMovieBanner extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(10),
-              child: Image.network(imgUrl),
+              child: CachedNetworkImage(
+                imageUrl: getImageUrl(imgUrl),
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             ),
           ),
           Padding(
