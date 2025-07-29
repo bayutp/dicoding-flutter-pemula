@@ -44,10 +44,13 @@ class ItemMovie extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(10),
-                child: CachedNetworkImage(
-                  imageUrl: getImageUrl(imgUrl),
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                child: Hero(
+                  tag: title,
+                  child: CachedNetworkImage(
+                    imageUrl: getImageUrl(imgUrl),
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

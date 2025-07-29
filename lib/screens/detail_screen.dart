@@ -39,12 +39,16 @@ class _DetailScreenState extends State<DetailScreen> {
               flex: 1,
               child: Stack(
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: getImageUrl(widget.movie.backdropPath),
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                    fit: BoxFit.cover,
-                    width: double.infinity,
+                  Hero(
+                    tag: widget.movie.title ?? '',
+                    child: CachedNetworkImage(
+                      imageUrl: getImageUrl(widget.movie.backdropPath),
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
