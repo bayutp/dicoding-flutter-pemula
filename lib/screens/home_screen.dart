@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/movie_dummy.dart';
 import 'package:flutter_apps/data/utils.dart';
+import 'package:flutter_apps/widgets/item_movie.dart';
 import 'package:flutter_apps/widgets/item_movie_banner.dart';
 import 'package:flutter_apps/widgets/title_category.dart';
 
@@ -80,12 +81,14 @@ class HomeScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final movie = popularDummy[index];
-                  return SizedBox(
-                    width: 200,
-                    child: ItemMovieBanner(
+                  return Padding(
+                    padding: EdgeInsetsGeometry.symmetric(horizontal: 8),
+                    child: ItemMovie(
                       imgUrl: getImageUrl(movie.posterPath),
                       title: movie.title ?? "",
                       rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
+                      genres: getGenres(movie.genreIds ?? []),
+                      popularity: movie.popularity.toString(),
                     ),
                   );
                 },

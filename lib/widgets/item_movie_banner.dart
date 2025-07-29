@@ -41,7 +41,9 @@ class ItemMovieBanner extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600,),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Row(
