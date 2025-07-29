@@ -6,14 +6,27 @@ import 'package:flutter_apps/widgets/rating.dart';
 
 class DetailScreen extends StatefulWidget {
   final Movie movie;
-  const DetailScreen({super.key, required this.movie});
+  final Function(Movie) onBookmarkChanged;
+  
+  const DetailScreen({
+    super.key,
+    required this.movie,
+    required this.onBookmarkChanged,
+  });
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  bool isBookmarked = false;
+  late bool isBookmarked;
+
+  @override
+  void initState() {
+    super.initState();
+    isBookmarked = widget.movie.isBookmark ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +84,10 @@ class _DetailScreenState extends State<DetailScreen> {
                               isBookmarked = !isBookmarked;
                               widget.movie.isBookmark = isBookmarked;
                             });
+                            widget.onBookmarkChanged(widget.movie);
                           },
                           icon: Icon(
-                            widget.movie.isBookmark ?? false
+                            isBookmarked
                                 ? Icons.bookmark
                                 : Icons.bookmark_border,
                           ),

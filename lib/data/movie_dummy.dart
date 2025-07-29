@@ -367,6 +367,4 @@ List<Map<String, dynamic>> genreJson = [
 ];
 
 List<Movie> movieDummy = movieJson.map((json) => Movie.fromJson(json)).toList();
-List<Movie> popularDummy = List.of(movieDummy)
-  ..sort((a, b) => (b.voteAverage ?? 0).compareTo((a.voteAverage ?? 0)));
 List<Genre> genres = genreJson.map((json) => Genre.fromJson(json)).toList();

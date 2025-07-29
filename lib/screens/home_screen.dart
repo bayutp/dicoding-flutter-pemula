@@ -1,19 +1,23 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_apps/data/movie_dummy.dart';
 import 'package:flutter_apps/data/utils.dart';
-import 'package:flutter_apps/screens/detail_screen.dart';
+import 'package:flutter_apps/models/movie_list.dart';
 import 'package:flutter_apps/screens/movies_screen.dart';
 import 'package:flutter_apps/widgets/item_movie.dart';
 import 'package:flutter_apps/widgets/item_movie_banner.dart';
 import 'package:flutter_apps/widgets/title_category.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final List<Movie> movies;
+  final Function(Movie) onTap;
+  
+  const HomeScreen({super.key, required this.movies, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    final popular = List.of(movies)
+      ..sort((a, b) => (b.voteAverage ?? 0).compareTo((a.voteAverage ?? 0)));
     return Scaffold(
       appBar: AppBar(
         title: SizedBox(
@@ -36,7 +40,11 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MoviesScreen(title: 'Now Playing'),
+                      builder: (context) => MoviesScreen(
+                        title: 'Now Playing',
+                        movies: movies,
+                        onTap: onTap,
+                      ),
                     ),
                   );
                 },
@@ -46,27 +54,20 @@ class HomeScreen extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    final movie = movieDummy[index];
+                    final movie = movies[index];
                     return SizedBox(
                       width: 200,
                       child: InkWell(
-                        onTap: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(movie: movie),
-                            ),
-                          ),
-                        },
+                        onTap: () => onTap(movie),
                         child: ItemMovieBanner(
                           imgUrl: getImageUrl(movie.posterPath),
-                          title: '${movie.title} status: ${movie.isBookmark}',
+                          title: '${movie.title}',
                           rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
                         ),
                       ),
                     );
                   },
-                  itemCount: min(movieDummy.length, 5),
+                  itemCount: min(movies.length, 5),
                 ),
               ),
               TitleCategory(
@@ -75,7 +76,11 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MoviesScreen(title: 'Top Rated'),
+                      builder: (context) => MoviesScreen(
+                        title: 'Top Rated',
+                        movies: popular,
+                        onTap: onTap,
+                      ),
                     ),
                   );
                 },
@@ -84,21 +89,14 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final movie = popularDummy[index];
+                  final movie = popular[index];
                   return Padding(
                     padding: EdgeInsetsGeometry.symmetric(horizontal: 8),
                     child: InkWell(
-                      onTap: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailScreen(movie: movie),
-                          ),
-                        ),
-                      },
+                      onTap: () => onTap(movie),
                       child: ItemMovie(
                         imgUrl: getImageUrl(movie.posterPath),
-                        title: '${movie.title} status: ${movie.isBookmark}',
+                        title: '${movie.title}',
                         rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
                         genres: getGenres(movie.genreIds ?? []),
                         popularity: movie.popularity.toString(),
@@ -106,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                itemCount: min(popularDummy.length, 5),
+                itemCount: min(movies.length, 5),
               ),
             ],
           ),

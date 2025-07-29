@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/data/movie_dummy.dart';
+import 'package:flutter_apps/models/movie_list.dart';
 import 'package:flutter_apps/screens/bookmark_screen.dart';
+import 'package:flutter_apps/screens/detail_screen.dart';
 import 'package:flutter_apps/screens/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,10 +15,34 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [
-    HomeScreen(),
-    BookmarkScreen(),
+  List<Movie> movies = movieDummy;
+
+  List<Widget> get _screens => [
+    HomeScreen(movies: movies, onTap: navigateToDetail),
+    BookmarkScreen(
+      bookmarked: movies.where((m) => m.isBookmark == true).toList(),
+      onTap: navigateToDetail,
+    ),
   ];
+
+  void updateMovie(Movie updatedMovie) {
+    final index = movies.indexWhere((m) => m.id == updatedMovie.id);
+    if (index != -1) {
+      setState(() {
+        movies[index] = updatedMovie;
+      });
+    }
+  }
+
+  void navigateToDetail(Movie movie) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            DetailScreen(movie: movie, onBookmarkChanged: updateMovie),
+      ),
+    );
+  }
 
   void _onItemTap(int index) {
     setState(() {
