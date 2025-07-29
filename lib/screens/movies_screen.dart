@@ -7,7 +7,13 @@ import 'package:flutter_apps/widgets/item_movie.dart';
 
 class MoviesScreen extends StatelessWidget {
   final String title;
-  const MoviesScreen({super.key, required this.title});
+  final int movieCount;
+
+  const MoviesScreen({
+    super.key,
+    required this.title,
+    this.movieCount = 20
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +29,13 @@ class MoviesScreen extends StatelessWidget {
           Movie movie;
           if (title.toLowerCase() == 'top rated') {
             movie = popularDummy[index];
-          } else {
+          } else if (title.toLowerCase() == 'now playing') {
             movie = movieDummy[index];
+          } else {
+            var bookmark = movieDummy.where(
+              (movie) => movie.isBookmark == true,
+            ).toList();
+            movie = bookmark[index];
           }
 
           return Padding(
@@ -48,7 +59,7 @@ class MoviesScreen extends StatelessWidget {
             ),
           );
         },
-        itemCount: movieDummy.length,
+        itemCount: movieCount,
       ),
     );
   }

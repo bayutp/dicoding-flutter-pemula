@@ -24,18 +24,6 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.notifications_outlined),
-          ),
-        ],
-        leading: Builder(
-          builder: (context) => IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.menu_outlined),
-          ),
-        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -72,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                         },
                         child: ItemMovieBanner(
                           imgUrl: getImageUrl(movie.posterPath),
-                          title: movie.title ?? "",
+                          title: '${movie.title} status: ${movie.isBookmark}',
                           rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
                         ),
                       ),
@@ -110,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: ItemMovie(
                         imgUrl: getImageUrl(movie.posterPath),
-                        title: movie.title ?? "",
+                        title: '${movie.title} status: ${movie.isBookmark}',
                         rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
                         genres: getGenres(movie.genreIds ?? []),
                         popularity: movie.popularity.toString(),
