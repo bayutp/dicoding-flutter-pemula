@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/widgets/rating.dart';
 
 class ItemMovieBanner extends StatelessWidget {
   final String imgUrl;
@@ -41,19 +42,12 @@ class ItemMovieBanner extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600,),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Icon(Icons.star, color: Colors.amber),
-              const SizedBox(width: 8),
-              Text('$rating/10 IMDb', style: TextStyle(color: Colors.grey)),
-            ],
-          ),
+          Rating(rating: rating),
         ],
       ),
     );

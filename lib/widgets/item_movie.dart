@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/utils.dart';
+import 'package:flutter_apps/widgets/item_genres.dart';
+import 'package:flutter_apps/widgets/rating.dart';
 
 class ItemMovie extends StatelessWidget {
   final String title;
@@ -59,9 +61,7 @@ class ItemMovie extends StatelessWidget {
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(Icons.star, color: Colors.amber),
-                    SizedBox(width: 8),
-                    Text('$rating/10 IMDb', style: TextStyle(color: Colors.grey)),
+                    Rating(rating: rating),
                     SizedBox(width: 16),
                     Icon(Icons.whatshot, color: Colors.orange),
                     SizedBox(width: 8),
@@ -69,25 +69,7 @@ class ItemMovie extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 16),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: genres.map((genre) {
-                    return Chip(
-                      label: Text(
-                        '$genre',
-                        style: TextStyle(
-                          color: Colors.purpleAccent,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                        ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(20),
-                      ),
-                    );
-                  }).toList(),
-                ),
+                GenreItem(genres: genres),
               ],
             ),
           ),
