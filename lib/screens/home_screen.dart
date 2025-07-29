@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/movie_dummy.dart';
 import 'package:flutter_apps/data/utils.dart';
 import 'package:flutter_apps/screens/detail_screen.dart';
+import 'package:flutter_apps/screens/movies_screen.dart';
 import 'package:flutter_apps/widgets/item_movie.dart';
 import 'package:flutter_apps/widgets/item_movie_banner.dart';
 import 'package:flutter_apps/widgets/title_category.dart';
@@ -43,12 +44,14 @@ class HomeScreen extends StatelessWidget {
             children: [
               TitleCategory(
                 title: 'Now Playing',
-                onClick: () => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Test"),
-                    duration: Duration(seconds: 1),
-                  ),
-                ),
+                onClick: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MoviesScreen(title: 'Now Playing'),
+                    ),
+                  );
+                },
               ),
               SizedBox(
                 height: 400,
@@ -80,12 +83,14 @@ class HomeScreen extends StatelessWidget {
               ),
               TitleCategory(
                 title: 'Top Rated',
-                onClick: () => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Test"),
-                    duration: Duration(seconds: 1),
-                  ),
-                ),
+                onClick: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MoviesScreen(title: 'Top Rated'),
+                    ),
+                  );
+                },
               ),
               ListView.builder(
                 shrinkWrap: true,
