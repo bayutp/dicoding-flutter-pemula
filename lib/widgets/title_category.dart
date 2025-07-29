@@ -18,7 +18,10 @@ class TitleCategory extends StatelessWidget {
           ),
           OutlinedButton(
             onPressed: onClick,
-            child: Text('See more', style: TextStyle(color: Colors.purple, fontSize: 12)),
+            child: Text(
+              'See more',
+              style: TextStyle(color: Colors.purple, fontSize: 12),
+            ),
           ),
         ],
       ),

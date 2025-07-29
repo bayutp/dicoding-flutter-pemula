@@ -22,7 +22,10 @@ class MoviesScreen extends StatelessWidget {
         title: Center(
           child: Text(
             title,
-            style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

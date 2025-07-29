@@ -11,7 +11,7 @@ import 'package:flutter_apps/widgets/title_category.dart';
 class HomeScreen extends StatelessWidget {
   final List<Movie> movies;
   final Function(Movie) onTap;
-  
+
   const HomeScreen({super.key, required this.movies, required this.onTap});
 
   @override

@@ -5,7 +5,7 @@ import 'package:flutter_apps/screens/movies_screen.dart';
 class BookmarkScreen extends StatelessWidget {
   final List<Movie> bookmarked;
   final Function(Movie) onTap;
-  
+
   const BookmarkScreen({
     super.key,
     required this.bookmarked,
