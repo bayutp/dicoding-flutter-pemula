@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/data/movie_dummy.dart';
 import 'package:flutter_apps/data/utils.dart';
@@ -33,19 +35,51 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            TitleCategory(
-              title: 'Now Playing',
-              onClick: () => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Test"), duration: Duration(seconds: 1)),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: [
+              TitleCategory(
+                title: 'Now Playing',
+                onClick: () => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Test"),
+                    duration: Duration(seconds: 1),
+                  ),
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
+              SizedBox(
+                height: 400,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    final movie = movieDummy[index];
+                    return SizedBox(
+                      width: 200,
+                      child: ItemMovieBanner(
+                        imgUrl: getImageUrl(movie.posterPath),
+                        title: movie.title ?? "",
+                        rating: movie.voteAverage?.toStringAsFixed(1) ?? "0",
+                      ),
+                    );
+                  },
+                  itemCount: min(movieDummy.length, 5),
+                ),
+              ),
+              TitleCategory(
+                title: 'Popular',
+                onClick: () => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Test"),
+                    duration: Duration(seconds: 1),
+                  ),
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final movie = movieDummy[index];
+                  final movie = popularDummy[index];
                   return SizedBox(
                     width: 200,
                     child: ItemMovieBanner(
@@ -55,10 +89,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                itemCount: movieDummy.take(5).length,
+                itemCount: min(popularDummy.length, 5),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
